@@ -23,12 +23,6 @@ export default function Home() {
   const [result, setResult] = useState([]);
   // const [searchInput, setSearchInput] = useState('');
 
-  const [capturedData, setCapturedData] = useState({
-    name: '',
-    url: '',
-    isCaptured: false,
-  });
-
   const { data, isFetching, isPlaceholderData } = useQuery({
     queryKey: ['pokemon', page],
     queryFn: () => getPokemon(page),
@@ -48,7 +42,7 @@ export default function Home() {
     } else {
       setResult(data?.results);
     }
-  }, [filterBy, isFetching]);
+  }, [filterBy, isFetching, data?.results]);
 
   useEffect(() => {
     if (!isPlaceholderData && data) {
@@ -115,9 +109,7 @@ export default function Home() {
           <Loading loadingMessage="Fetching Pokemon" />
         ) : (
           <>
-            {capturedData.isCaptured ? (
-              <p>captured</p>
-            ) : isListView ? (
+            {isListView ? (
               <ListView pokemonData={result} isListView={isListView} />
             ) : (
               <GridView pokemonData={result} isListView={isListView} />
@@ -131,11 +123,12 @@ export default function Home() {
       </div>
       <div className="flex justify-around">
         <button
-          className="p-4"
           onClick={() => setPage((prevPage) => prevPage - 1)}
           disabled={page === 1 || isFetching}
+          className="flex items-center gap-2"
         >
           <FaBackward />
+          Previous Page
         </button>
         <button
           onClick={() => {
@@ -144,7 +137,9 @@ export default function Home() {
             }
           }}
           disabled={!data?.next || isFetching}
+          className="flex items-center gap-2"
         >
+          Next Page
           <FaForward />
         </button>
       </div>

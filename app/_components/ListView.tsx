@@ -1,5 +1,6 @@
 import { RootProps } from '@/types/data';
 import CapturedButton from './CapturedButton';
+import Image from 'next/image';
 
 const ListView: React.FC<RootProps> = ({ pokemonData, isListView }) => {
   const extractPokemonId = (url: string) => {
@@ -22,15 +23,18 @@ const ListView: React.FC<RootProps> = ({ pokemonData, isListView }) => {
                       className="flex justify-between items-center border-b border-gray-200 py-4"
                     >
                       {/* Image and Name Container */}
-                      <div className="flex items-center space-x-4">
-                        <img
-                          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
-                          alt={item.name}
-                          className="w-12 h-12"
-                        />
-
+                      <div className="flex gap-2 items-center">
+                        <div className="flex items-center space-x-4 w-12 h-12 relative">
+                          <Image
+                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
+                            alt={item.name}
+                            sizes="100%"
+                            fill
+                          />
+                        </div>
                         <span className="text-sm">{`Name: ${item.name}`}</span>
                       </div>
+
                       {/* Button Container */}
                       <div>
                         <CapturedButton
