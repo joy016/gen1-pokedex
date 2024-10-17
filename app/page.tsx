@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Footer from './_components/Footer';
 import GridView from './_components/GridView';
-import Header from './_components/Header';
 import ListView from './_components/ListView';
 import {
   keepPreviousData,
@@ -14,6 +13,7 @@ import { getPokemon } from '@/api/pokemon';
 import Loading from './_components/Loading';
 import { FaBackward } from 'react-icons/fa';
 import { FaForward } from 'react-icons/fa6';
+import Header from './_components/Header';
 
 export default function Home() {
   const queryClient = useQueryClient();
@@ -21,7 +21,6 @@ export default function Home() {
   const [filterBy, setFilterBy] = useState('all');
   const [page, setPage] = useState(1);
   const [result, setResult] = useState([]);
-  // const [searchInput, setSearchInput] = useState('');
 
   const { data, isFetching, isPlaceholderData } = useQuery({
     queryKey: ['pokemon', page],
@@ -92,10 +91,13 @@ export default function Home() {
     setFilterBy(filteredBy);
   };
 
-  // const handleSearch = (data: any) => {
-  //   setSearchInput(data);
-  //   console.log('inputVal', searchInput);
-  // };
+  const handleSearch = (pokemonName: string) => {
+    setResult(
+      data?.results.filter(
+        (item: { name: string }) => item.name === pokemonName
+      )
+    );
+  };
 
   return (
     <div>
@@ -103,6 +105,7 @@ export default function Home() {
         listView={isListView}
         handleChange={handleChange}
         headerName={filterBy === 'all' ? 'Pokedex' : 'Captured'}
+        handleSearch={handleSearch}
       />
       <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-40 mb-20">
         {isFetching ? (
