@@ -21,7 +21,7 @@ export default function Home() {
   const [filterBy, setFilterBy] = useState('all');
   const [page, setPage] = useState(1);
   const [result, setResult] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
+  // const [searchInput, setSearchInput] = useState('');
 
   const [capturedData, setCapturedData] = useState({
     name: '',
@@ -29,7 +29,7 @@ export default function Home() {
     isCaptured: false,
   });
 
-  const { status, error, data, isFetching, isPlaceholderData } = useQuery({
+  const { data, isFetching, isPlaceholderData } = useQuery({
     queryKey: ['pokemon', page],
     queryFn: () => getPokemon(page),
     placeholderData: keepPreviousData,
@@ -98,10 +98,10 @@ export default function Home() {
     setFilterBy(filteredBy);
   };
 
-  const handleSearch = (data: any) => {
-    setSearchInput(data);
-    console.log('inputVal', searchInput);
-  };
+  // const handleSearch = (data: any) => {
+  //   setSearchInput(data);
+  //   console.log('inputVal', searchInput);
+  // };
 
   return (
     <div>
@@ -109,7 +109,6 @@ export default function Home() {
         listView={isListView}
         handleChange={handleChange}
         headerName={filterBy === 'all' ? 'Pokedex' : 'Captured'}
-        handleSearch={handleSearch}
       />
       <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-40 mb-20">
         {isFetching ? (

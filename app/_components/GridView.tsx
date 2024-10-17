@@ -6,11 +6,7 @@ import Image from 'next/image';
 import CapturedButton from './CapturedButton';
 import { extractPokemonId } from '@/utils/helper';
 
-const GridView: React.FC<RootProps> = ({
-  pokemonData,
-  isListView,
-  handleCapture,
-}) => {
+const GridView: React.FC<RootProps> = ({ pokemonData, isListView }) => {
   const router = useRouter();
 
   return (

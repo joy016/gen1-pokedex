@@ -5,14 +5,13 @@ interface HeaderProps {
   listView: boolean;
   handleChange: () => void;
   headerName: string;
-  handleSearch: (e: any) => void;
+  // handleSearch: (e: any) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
   listView,
   handleChange,
   headerName,
-  handleSearch,
 }) => {
   return (
     <div>
@@ -28,7 +27,6 @@ const Header: React.FC<HeaderProps> = ({
               name="name"
               placeholder="Search"
               className="bg-transparent outline-none flex-1"
-              onChange={(e) => handleSearch(e.target.value)}
             />
           </form>
         </div>
